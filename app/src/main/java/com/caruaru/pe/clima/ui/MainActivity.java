@@ -2,7 +2,11 @@ package com.caruaru.pe.clima.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.caruaru.pe.clima.R;
 import com.caruaru.pe.clima.models.Clima;
@@ -13,14 +17,23 @@ import com.caruaru.pe.clima.transactions.TransactionTask;
 public class MainActivity extends AppCompatActivity implements GetClimaView {
 
     TextView txtClima;
+    EditText edtEndereco;
+    Button btBuscar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtClima = findViewById(R.id.txtClima);
+        this.txtClima = findViewById(R.id.txtClima);
+        this.edtEndereco = findViewById(R.id.edtEndereco);
+        this.btBuscar = findViewById(R.id.btBuscar);
 
-        buscar("Caruaru,br");
+        this.btBuscar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                buscar(edtEndereco.getText().toString());
+            }
+        });
     }
 
     public void buscar(String endereco){
@@ -31,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements GetClimaView {
     @Override
     public void setClima(Clima clima) {
 
-        this.txtClima.setText("Temperatura: "+clima.getTemperatura());
+        if(clima!=null) {
+            this.txtClima.setText("Temperatura: " + clima.getTemperatura());
+        }else{
+            Toast.makeText(this,"Nenhum resultado encontrado", Toast.LENGTH_SHORT).show();
+        }
     }
 }
