@@ -1,6 +1,7 @@
 package com.caruaru.pe.clima.request;
 
 
+import com.caruaru.pe.clima.models.Clima;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -19,11 +20,12 @@ public class RetrofitClient {
     public static Retrofit getClient() {
         if (retrofit==null) {
             GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(Clima.class, new ClimaDeserializer());
             Gson gson = builder.create();
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(HOST_MAIN)
-                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }
         return retrofit;

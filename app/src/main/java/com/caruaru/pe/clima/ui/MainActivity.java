@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.caruaru.pe.clima.R;
+import com.caruaru.pe.clima.models.Clima;
 import com.caruaru.pe.clima.transactions.GetClimaTransaction;
 import com.caruaru.pe.clima.transactions.GetClimaView;
 import com.caruaru.pe.clima.transactions.TransactionTask;
@@ -28,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements GetClimaView {
     }
 
     @Override
-    public void setClima(String clima) {
-        this.txtClima.setText(clima);
+    public void setClima(Clima clima) {
+
+        this.txtClima.setText("Temperatura: "+clima.getTemperatura());
     }
 }

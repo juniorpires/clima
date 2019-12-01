@@ -2,6 +2,7 @@ package com.caruaru.pe.clima.transactions;
 
 import android.util.Log;
 
+import com.caruaru.pe.clima.models.Clima;
 import com.caruaru.pe.clima.request.ClimaRequest;
 import com.caruaru.pe.clima.request.RetrofitClient;
 
@@ -17,7 +18,7 @@ public class GetClimaTransaction implements Transaction {
     private String endereco;
     private ClimaRequest apiService;
     private GetClimaView view;
-    private String clima;
+    private Clima clima;
 
 
 
@@ -31,10 +32,10 @@ public class GetClimaTransaction implements Transaction {
 
 
     public void execute(){
-            Call<String> call = this.apiService.getClima(this.endereco);
+            Call<Clima> call = this.apiService.getClima(this.endereco,"metric");
 
             try {
-                Response<String> response = call.execute();
+                Response<Clima> response = call.execute();
 
                 if (response.body() != null) {
 
@@ -48,7 +49,10 @@ public class GetClimaTransaction implements Transaction {
 
 
     public void updateView() {
-        this.view.setClima(this.clima);
+
+            this.view.setClima(this.clima);
+
+
     }
 
 
